@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DAL.Models.Domain;
 using DAL.Models.DTO;
+using DAL.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,7 +14,7 @@ namespace Cinema.API.Controllers
         private readonly IMapper _mapper;
         private readonly IRoleRepository _roleRepository;
 
-        public RolesController(IMapper mapper, IRoleRepository roleRepository)
+        public RoleController(IMapper mapper, IRoleRepository roleRepository)
         {
             _mapper = mapper;
             _roleRepository = roleRepository;
