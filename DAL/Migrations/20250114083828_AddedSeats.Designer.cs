@@ -4,6 +4,7 @@ using DAL.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250114083828_AddedSeats")]
+    partial class AddedSeats
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -179,18 +182,12 @@ namespace DAL.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("SeatNumber")
-                        .HasMaxLength(10)
                         .HasColumnType("int");
 
                     b.Property<int>("TheaterHallId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("TicketId")
-                        .HasColumnType("int");
-
                     b.HasKey("SeatId");
-
-                    b.HasIndex("TheaterHallId");
 
                     b.ToTable("Seats");
                 });
@@ -270,9 +267,6 @@ namespace DAL.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(10, 2)");
 
-                    b.Property<int>("SeatId")
-                        .HasColumnType("int");
-
                     b.Property<int>("ShowtimeId")
                         .HasColumnType("int");
 
@@ -280,9 +274,6 @@ namespace DAL.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("TicketId");
-
-                    b.HasIndex("SeatId")
-                        .IsUnique();
 
                     b.HasIndex("ShowtimeId");
 
@@ -300,9 +291,6 @@ namespace DAL.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"));
 
                     b.Property<int>("AddressId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("AddressId1")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreateDate")
@@ -332,8 +320,6 @@ namespace DAL.Migrations
                     b.HasKey("UserId");
 
                     b.HasIndex("AddressId");
-
-                    b.HasIndex("AddressId1");
 
                     b.ToTable("Users");
                 });
@@ -398,17 +384,6 @@ namespace DAL.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("DAL.Models.Domain.Seat", b =>
-                {
-                    b.HasOne("DAL.Models.Domain.TheaterHall", "TheaterHall")
-                        .WithMany("Seats")
-                        .HasForeignKey("TheaterHallId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("TheaterHall");
-                });
-
             modelBuilder.Entity("DAL.Models.Domain.Showtime", b =>
                 {
                     b.HasOne("DAL.Models.Domain.Movie", "Movie")
@@ -441,12 +416,6 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("DAL.Models.Domain.Ticket", b =>
                 {
-                    b.HasOne("DAL.Models.Domain.Seat", "Seat")
-                        .WithOne("Ticket")
-                        .HasForeignKey("DAL.Models.Domain.Ticket", "SeatId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("DAL.Models.Domain.Showtime", "Showtime")
                         .WithMany("Tickets")
                         .HasForeignKey("ShowtimeId")
@@ -459,8 +428,6 @@ namespace DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Seat");
-
                     b.Navigation("Showtime");
 
                     b.Navigation("User");
@@ -469,14 +436,10 @@ namespace DAL.Migrations
             modelBuilder.Entity("DAL.Models.Domain.User", b =>
                 {
                     b.HasOne("DAL.Models.Domain.Address", "Address")
-                        .WithMany()
-                        .HasForeignKey("AddressId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("DAL.Models.Domain.Address", null)
                         .WithMany("Users")
-                        .HasForeignKey("AddressId1");
+                        .HasForeignKey("AddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Address");
                 });
@@ -516,11 +479,6 @@ namespace DAL.Migrations
                     b.Navigation("Users");
                 });
 
-            modelBuilder.Entity("DAL.Models.Domain.Seat", b =>
-                {
-                    b.Navigation("Ticket");
-                });
-
             modelBuilder.Entity("DAL.Models.Domain.Showtime", b =>
                 {
                     b.Navigation("Tickets");
@@ -528,8 +486,6 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("DAL.Models.Domain.TheaterHall", b =>
                 {
-                    b.Navigation("Seats");
-
                     b.Navigation("Showtimes");
                 });
 #pragma warning restore 612, 618

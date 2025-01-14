@@ -25,6 +25,7 @@ namespace DAL.Data
         public DbSet<Ticket> Tickets { get; set; }
         public DbSet<Showtime> Showtimes { get; set; }
         public DbSet<TheaterHall> TheaterHalls { get; set; }
+        public DbSet<Seat> Seats { get; set; }
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Review> Reviews { get; set; }
 
@@ -56,6 +57,19 @@ namespace DAL.Data
                 entity.HasMany(u => u.Roles)
                       .WithMany(r => r.Users)
                       .UsingEntity(j => j.ToTable("UserRoles"));
+
+                entity.HasOne(u => u.Address)
+                      .WithMany()
+                      .HasForeignKey(u => u.AddressId)
+                      .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            // MOVIE-GENRE (Mange-til-Mange)
+            modelBuilder.Entity<Movie>(entity =>
+            {
+                entity.HasMany(m => m.Genres)
+                      .WithMany(g => g.Movies)
+                      .UsingEntity(j => j.ToTable("MovieGenres"));
             });
 
             // POSTALCODE
@@ -116,6 +130,25 @@ namespace DAL.Data
             {
                 entity.Property(e => e.RoleName)
                       .HasMaxLength(50);
+            });
+
+            // SEAT
+            modelBuilder.Entity<Seat>(entity =>
+            {
+                entity.Property(e => e.SeatNumber)
+                      .HasMaxLength(10); // Eksempel: Maks længde for sædenummer
+
+                // Relation: Seat -> TheaterHall (mange sæder til én theater hall)
+                entity.HasOne(s => s.TheaterHall)
+                      .WithMany(th => th.Seats)
+                      .HasForeignKey(s => s.TheaterHallId)
+                      .OnDelete(DeleteBehavior.Restrict); // Forhindrer kaskaderende sletning
+
+                // Relation: Seat -> Ticket (én billet pr. sæde pr. forestilling)
+                entity.HasOne(s => s.Ticket)
+                      .WithOne(t => t.Seat)
+                      .HasForeignKey<Ticket>(t => t.SeatId)
+                      .OnDelete(DeleteBehavior.Restrict); // Forhindrer kaskaderende sletning
             });
         }
     }
