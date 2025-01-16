@@ -52,6 +52,7 @@ namespace DAL.Data
                       .HasMaxLength(100);
                 entity.Property(e => e.CreateDate)
                       .HasDefaultValueSql("GETDATE()");
+                
 
                 // Configure User-Role many-to-many relationship
                 entity.HasMany(u => u.Roles)

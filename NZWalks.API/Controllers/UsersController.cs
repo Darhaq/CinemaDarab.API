@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using DAL.Repositories;
 using DAL.Models.DTO;
 using DAL.Models.Domain;
+using DAL.Models.DTOs.User;
 
 namespace Cinema.API.Controllers
 {
@@ -99,5 +100,6 @@ namespace Cinema.API.Controllers
             // Map Domain Model to DTO
 
         }
+
     }
 }

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAL.Models.DTO
+namespace DAL.Models.DTOs.TheaterHall
 {
     public class TheaterHallDto
     {

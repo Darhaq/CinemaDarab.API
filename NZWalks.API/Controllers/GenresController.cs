@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using DAL.Models.DTO;
+using DAL.Models.DTOs.Genre;
 using DAL.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

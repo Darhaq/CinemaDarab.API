@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DAL.Models.Domain;
 using DAL.Models.DTO;
+using DAL.Models.DTOs.Movie;
 using DAL.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

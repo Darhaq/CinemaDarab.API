@@ -1,6 +1,11 @@
 ﻿using AutoMapper;
 using DAL.Models.Domain;
 using DAL.Models.DTO;
+using DAL.Models.DTOs.Genre;
+using DAL.Models.DTOs.Movie;
+using DAL.Models.DTOs.Review;
+using DAL.Models.DTOs.TheaterHall;
+using DAL.Models.DTOs.User;
 
 namespace NZWalks.API.Mappings
 {
