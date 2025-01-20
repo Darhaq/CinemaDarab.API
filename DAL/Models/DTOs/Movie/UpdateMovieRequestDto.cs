@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAL.Models.DTO
+namespace DAL.Models.DTOs.Movie
 {
     public class UpdateMovieRequestDto
     {
@@ -15,8 +15,5 @@ namespace DAL.Models.DTO
         public decimal Rating { get; set; }
         public DateOnly ReleaseDate { get; set; }
         public List<int> GenreIds { get; set; } = new List<int>();
-
-        //public List<Genre> Genres { get; set; } = new List<Genre>();
-
     }
 }

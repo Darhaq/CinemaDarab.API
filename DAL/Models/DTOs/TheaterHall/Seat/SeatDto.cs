@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAL.Models.DTOs.TheaterHall
+namespace DAL.Models.DTOs.TheaterHall.Seat
 {
     public class SeatDto
     {

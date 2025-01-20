@@ -29,16 +29,6 @@ namespace DAL.Data
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Review> Reviews { get; set; }
 
-        // Fluent API
-
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    optionsBuilder.UseSqlServer(
-        //        "Server=(localdb)\\MSSQLLocalDB;Database=NewCinemaDb;Trusted_Connection=True;TrustServerCertificate=True");
-
-        //"Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = PubIntroDatabase"
-        // "Server=(localdb)\\MSSQLLocalDB;Database=NewCinemaDb;Trusted_Connection=True;TrustServerCertificate=True"
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // USER
@@ -68,6 +58,9 @@ namespace DAL.Data
             // MOVIE-GENRE (Mange-til-Mange)
             modelBuilder.Entity<Movie>(entity =>
             {
+                entity.Property(e => e.Rating)
+                      .HasPrecision(3, 1);
+
                 entity.HasMany(m => m.Genres)
                       .WithMany(g => g.Movies)
                       .UsingEntity(j => j.ToTable("MovieGenres"));

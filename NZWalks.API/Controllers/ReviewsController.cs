@@ -39,17 +39,17 @@ namespace Cinema.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] ReviewDto reviewDto)
+        public async Task<IActionResult> Create([FromBody] CreateReviewDto createReviewDto)
         {
-            var review = _mapper.Map<Review>(reviewDto);
+            var review = _mapper.Map<Review>(createReviewDto);
             var createdReview = await _reviewRepository.CreateAsync(review);
             return Ok(_mapper.Map<ReviewDto>(createdReview));
         }
 
         [HttpPut("{id:int}")]
-        public async Task<IActionResult> Update(int id, [FromBody] ReviewDto reviewDto)
+        public async Task<IActionResult> Update(int id, [FromBody] UpdateReviewDto updateReviewDto)
         {
-            var review = _mapper.Map<Review>(reviewDto);
+            var review = _mapper.Map<Review>(updateReviewDto);
             var updatedReview = await _reviewRepository.UpdateAsync(id, review);
             if (updatedReview == null)
             {

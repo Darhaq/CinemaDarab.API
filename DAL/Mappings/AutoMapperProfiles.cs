@@ -5,6 +5,7 @@ using DAL.Models.DTOs.Genre;
 using DAL.Models.DTOs.Movie;
 using DAL.Models.DTOs.Review;
 using DAL.Models.DTOs.TheaterHall;
+using DAL.Models.DTOs.TheaterHall.Seat;
 using DAL.Models.DTOs.User;
 
 namespace NZWalks.API.Mappings
@@ -23,6 +24,13 @@ namespace NZWalks.API.Mappings
 
             // Genre
             CreateMap<Genre, GenreDto>().ReverseMap();
+            CreateMap<Genre, CreateGenreDto>().ReverseMap();
+            CreateMap<Genre, UpdateGenreDto>().ReverseMap();
+
+            // Review
+            CreateMap<Review, ReviewDto>().ReverseMap();
+            CreateMap<Review, CreateReviewDto>().ReverseMap();
+            CreateMap<Review, UpdateReviewDto>().ReverseMap();
 
             // Movie
             CreateMap<Movie, MovieDto>().ReverseMap();

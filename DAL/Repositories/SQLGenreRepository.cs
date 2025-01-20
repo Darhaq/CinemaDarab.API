@@ -29,5 +29,42 @@ namespace DAL.Repositories
 
 
         }
+
+        public async Task<Genre> CreateAsync(Genre genre)
+        {
+            dbContext.Genres.AddAsync(genre);
+            await dbContext.SaveChangesAsync();
+            return genre;
+        }
+
+        public async Task<Genre?> UpdateAsync(int id, Genre genre)
+        {
+            var existingGenre = await dbContext.Genres
+                .FirstOrDefaultAsync(x => x.GenreID == id);
+
+            if (existingGenre != null)
+            {
+                return null;
+            }
+
+            existingGenre.GenreName = genre.GenreName;
+            await dbContext.SaveChangesAsync();
+            return existingGenre;
+        }
+
+        public async Task<Genre?> DeleteAsync(int id)
+        {
+            var existingGenre = await dbContext.Genres
+                .FirstOrDefaultAsync(x => x.GenreID == id);
+
+            if (existingGenre != null)
+            {
+                return null;
+            }
+
+            dbContext.Genres.Remove(existingGenre);
+            await dbContext.SaveChangesAsync();
+            return existingGenre;
+        }
     }
 }

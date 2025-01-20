@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using DAL.Repositories;
-using DAL.Models.DTO;
 using DAL.Models.Domain;
 using DAL.Models.DTOs.User;
 

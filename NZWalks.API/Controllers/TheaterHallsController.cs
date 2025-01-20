@@ -2,6 +2,7 @@
 using DAL.Models.Domain;
 using DAL.Models.DTOs;
 using DAL.Models.DTOs.TheaterHall;
+using DAL.Models.DTOs.TheaterHall.Seat;
 using DAL.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

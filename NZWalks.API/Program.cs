@@ -58,6 +58,7 @@ builder.Services.AddScoped<ITheaterHallRepository, SQLTheaterHallRepository>();
 builder.Services.AddScoped<IShowtimeRepository, SQLShowtimeRepository>();
 builder.Services.AddScoped<IReviewRepository, SQLReviewRepository>();
 builder.Services.AddScoped<IAddressRepository, SQLAddressRepository>();
+builder.Services.AddScoped<ISeatRepository, SQLSeatRepository>();
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
 
 builder.Services.AddCors(options =>

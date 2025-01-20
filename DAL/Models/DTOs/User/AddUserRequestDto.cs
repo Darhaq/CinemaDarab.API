@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAL.Models.DTO
+namespace DAL.Models.DTOs.User
 {
     public class AddUserRequestDto
     {
@@ -16,6 +16,7 @@ namespace DAL.Models.DTO
         [Required]
         [EmailAddress]
         public string Email { get; set; } = null!;
+        public string Password { get; set; }
         public int PostalCodeId { get; set; }
     }
 }
