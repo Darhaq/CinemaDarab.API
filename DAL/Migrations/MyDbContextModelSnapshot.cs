@@ -52,7 +52,7 @@ namespace DAL.Migrations
 
                     b.HasIndex("PostalCodeId");
 
-                    b.ToTable("Addresses");
+                    b.ToTable("Addresses", (string)null);
                 });
 
             modelBuilder.Entity("DAL.Models.Domain.Genre", b =>
@@ -69,7 +69,7 @@ namespace DAL.Migrations
 
                     b.HasKey("GenreID");
 
-                    b.ToTable("Genres");
+                    b.ToTable("Genres", (string)null);
                 });
 
             modelBuilder.Entity("DAL.Models.Domain.Movie", b =>
@@ -96,7 +96,7 @@ namespace DAL.Migrations
 
                     b.HasKey("MovieId");
 
-                    b.ToTable("Movies");
+                    b.ToTable("Movies", (string)null);
                 });
 
             modelBuilder.Entity("DAL.Models.Domain.PostalCode", b =>
@@ -110,7 +110,7 @@ namespace DAL.Migrations
 
                     b.HasKey("PostalCodeId");
 
-                    b.ToTable("PostalCodes");
+                    b.ToTable("PostalCodes", (string)null);
                 });
 
             modelBuilder.Entity("DAL.Models.Domain.Review", b =>
@@ -146,7 +146,7 @@ namespace DAL.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Reviews");
+                    b.ToTable("Reviews", (string)null);
                 });
 
             modelBuilder.Entity("DAL.Models.Domain.Role", b =>
@@ -164,7 +164,7 @@ namespace DAL.Migrations
 
                     b.HasKey("RoleId");
 
-                    b.ToTable("Roles");
+                    b.ToTable("Roles", (string)null);
                 });
 
             modelBuilder.Entity("DAL.Models.Domain.Seat", b =>
@@ -192,7 +192,7 @@ namespace DAL.Migrations
 
                     b.HasIndex("TheaterHallId");
 
-                    b.ToTable("Seats");
+                    b.ToTable("Seats", (string)null);
                 });
 
             modelBuilder.Entity("DAL.Models.Domain.Showtime", b =>
@@ -218,7 +218,7 @@ namespace DAL.Migrations
 
                     b.HasIndex("TheaterHallId");
 
-                    b.ToTable("Showtimes");
+                    b.ToTable("Showtimes", (string)null);
                 });
 
             modelBuilder.Entity("DAL.Models.Domain.TheaterHall", b =>
@@ -253,7 +253,7 @@ namespace DAL.Migrations
 
                     b.HasIndex("AddressId");
 
-                    b.ToTable("TheaterHalls");
+                    b.ToTable("TheaterHalls", (string)null);
                 });
 
             modelBuilder.Entity("DAL.Models.Domain.Ticket", b =>
@@ -288,7 +288,7 @@ namespace DAL.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Tickets");
+                    b.ToTable("Tickets", (string)null);
                 });
 
             modelBuilder.Entity("DAL.Models.Domain.User", b =>
@@ -335,7 +335,7 @@ namespace DAL.Migrations
 
                     b.HasIndex("AddressId1");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("GenreMovie", b =>

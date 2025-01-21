@@ -14,7 +14,7 @@ namespace DAL.Models.Domain
         public string Title { get; set; } = String.Empty;
         public int DurationMinutes { get; set; }
         public decimal Rating { get; set; }
-        public DateOnly ReleaseDate { get; set; }
+        public DateTime ReleaseDate { get; set; }
         public List<Genre> Genres { get; set; } = new List<Genre>();
 
     }

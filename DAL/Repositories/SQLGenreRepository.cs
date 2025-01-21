@@ -25,7 +25,7 @@ namespace DAL.Repositories
         public async Task<Genre?> GetByIdAsync(int id)
         {
             return await dbContext.Genres
-                         .FirstOrDefaultAsync(x => x.GenreID == id);
+                         .FirstOrDefaultAsync(x => x.GenreId == id);
 
 
         }
@@ -40,7 +40,7 @@ namespace DAL.Repositories
         public async Task<Genre?> UpdateAsync(int id, Genre genre)
         {
             var existingGenre = await dbContext.Genres
-                .FirstOrDefaultAsync(x => x.GenreID == id);
+                .FirstOrDefaultAsync(x => x.GenreId == id);
 
             if (existingGenre != null)
             {
@@ -55,7 +55,7 @@ namespace DAL.Repositories
         public async Task<Genre?> DeleteAsync(int id)
         {
             var existingGenre = await dbContext.Genres
-                .FirstOrDefaultAsync(x => x.GenreID == id);
+                .FirstOrDefaultAsync(x => x.GenreId == id);
 
             if (existingGenre != null)
             {

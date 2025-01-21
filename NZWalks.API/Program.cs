@@ -1,13 +1,13 @@
 using DAL.Data;
 using DAL.Repositories;
 using Microsoft.EntityFrameworkCore;
-using NZWalks.API.Mappings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using Cinema.API;
+using DAL.Mappings;
 
 
 var builder = WebApplication.CreateBuilder(args);

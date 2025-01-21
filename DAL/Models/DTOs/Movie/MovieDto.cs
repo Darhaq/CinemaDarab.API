@@ -14,7 +14,7 @@ namespace DAL.Models.DTOs.Movie
         public string Title { get; set; }
         public int DurationMinutes { get; set; }
         public string Description { get; set; }
-        public DateOnly ReleaseDate { get; set; }
+        public DateTime ReleaseDate { get; set; }
         public List<GenreDto> Genres { get; set; } = new List<GenreDto>();
 
         //public List<Genre> Genres { get; set; } = new List<Genre>();

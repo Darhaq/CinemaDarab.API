@@ -13,7 +13,7 @@ namespace DAL.Models.DTOs.Movie
         public string Title { get; set; }
         public int DurationMinutes { get; set; }
         public decimal Rating { get; set; }
-        public DateOnly ReleaseDate { get; set; }
+        public DateTime ReleaseDate { get; set; }
 
         [MaxLength(500, ErrorMessage = "Description cannot be longer than 500 characters.")]
         public string Description { get; set; }
