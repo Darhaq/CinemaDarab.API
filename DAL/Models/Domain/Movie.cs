@@ -15,6 +15,7 @@ namespace DAL.Models.Domain
         public int DurationMinutes { get; set; }
         public decimal Rating { get; set; }
         public DateTime ReleaseDate { get; set; }
+        public List<Review> Reviews { get; set; } = new List<Review>();
         public List<Genre> Genres { get; set; } = new List<Genre>();
 
     }

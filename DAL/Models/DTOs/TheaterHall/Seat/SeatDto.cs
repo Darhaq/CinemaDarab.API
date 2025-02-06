@@ -9,7 +9,8 @@ namespace DAL.Models.DTOs.TheaterHall.Seat
     public class SeatDto
     {
         public int Id { get; set; }
-        public string SeatNumber { get; set; }
+        public string Row { get; set; }
+        public int SeatNumber { get; set; }
         public int TheaterHallId { get; set; }
     }
 }

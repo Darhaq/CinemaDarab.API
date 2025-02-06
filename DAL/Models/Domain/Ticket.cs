@@ -12,7 +12,7 @@ namespace DAL.Models.Domain
         public int ShowtimeId { get; set; }
         public Showtime Showtime { get; set; } = null!;
         public int UserId { get; set; }
-        public User User { get; set; } = null!;    
+        public User User { get; set; } = null!;
         public decimal Price { get; set; }
         public bool IsBooked { get; set; }
 

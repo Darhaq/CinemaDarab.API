@@ -10,7 +10,7 @@ namespace DAL.Models.Domain
     public class Seat
     {
         public int SeatId { get; set; }
-        public int RowNumber { get; set; }
+        public string Row { get; set; }
         public int SeatNumber { get; set; }
 
         // Fremmednøgle til TheaterHall

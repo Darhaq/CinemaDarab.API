@@ -21,11 +21,14 @@ namespace DAL.Models.Domain
         public string Email { get; set; } = null!;
         [Required]
         public string PasswordHash { get; set; } = string.Empty;
+        public int RoleId { get; set; }
+        public Role Role { get; set; }
         public DateTime CreateDate { get; set; } = DateTime.Now;
 
         // Navigation Property
         public Address Address { get; set; }
         public int AddressId { get; set; }
         public List<Role> Roles { get; set; } = new List<Role>();
+        public List<Review> Reviews { get; set; } = new List<Review>();
     }
 }

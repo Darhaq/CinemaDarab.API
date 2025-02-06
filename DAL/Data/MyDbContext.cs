@@ -31,6 +31,7 @@ namespace DAL.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             // USER
             modelBuilder.Entity<User>(entity =>
             {
@@ -50,20 +51,9 @@ namespace DAL.Data
                       .UsingEntity(j => j.ToTable("UserRoles"));
 
                 entity.HasOne(u => u.Address)
-                      .WithMany()
+                      .WithMany(a => a.Users)
                       .HasForeignKey(u => u.AddressId)
-                      .OnDelete(DeleteBehavior.Restrict);
-            });
-
-            // MOVIE-GENRE (Mange-til-Mange)
-            modelBuilder.Entity<Movie>(entity =>
-            {
-                entity.Property(e => e.Rating)
-                      .HasPrecision(3, 1);
-
-                entity.HasMany(m => m.Genres)
-                      .WithMany(g => g.Movies)
-                      .UsingEntity(j => j.ToTable("MovieGenres"));
+                      .OnDelete(DeleteBehavior.Restrict); // One-to-many
             });
 
             // POSTALCODE
@@ -92,6 +82,14 @@ namespace DAL.Data
                       .HasPrecision(3, 1);
                 entity.Property(e => e.ReviewDate)
                       .HasDefaultValueSql("GETDATE()");
+
+                entity.HasOne(r => r.Movie)
+                      .WithMany(m => m.Reviews)
+                      .HasForeignKey(r => r.MovieId); // One-to-many
+
+                entity.HasOne(r => r.User)
+                      .WithMany(u => u.Reviews)
+                      .HasForeignKey(r => r.UserId); // One-to-many
             });
 
             // TICKET
@@ -117,6 +115,11 @@ namespace DAL.Data
                       .HasMaxLength(100);
                 entity.Property(e => e.Country)
                       .HasMaxLength(100);
+
+                entity.HasMany(a => a.Users)
+                      .WithOne(u => u.Address)
+                      .HasForeignKey(u => u.AddressId)
+                      .OnDelete(DeleteBehavior.Restrict); // One-to-many
             });
 
             // ROLE
@@ -136,14 +139,18 @@ namespace DAL.Data
                 entity.HasOne(s => s.TheaterHall)
                       .WithMany(th => th.Seats)
                       .HasForeignKey(s => s.TheaterHallId)
-                      .OnDelete(DeleteBehavior.Restrict); // Forhindrer kaskaderende sletning
+                      .OnDelete(DeleteBehavior.Restrict); // One-to-many
 
                 // Relation: Seat -> Ticket (én billet pr. sæde pr. forestilling)
                 entity.HasOne(s => s.Ticket)
                       .WithOne(t => t.Seat)
                       .HasForeignKey<Ticket>(t => t.SeatId)
-                      .OnDelete(DeleteBehavior.Restrict); // Forhindrer kaskaderende sletning
+                      .OnDelete(DeleteBehavior.Restrict); // One-to-one
             });
+
+            modelBuilder.SeedData();
+
+
         }
     }
 }

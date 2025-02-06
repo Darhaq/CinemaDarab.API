@@ -52,24 +52,24 @@ namespace DAL.Migrations
 
                     b.HasIndex("PostalCodeId");
 
-                    b.ToTable("Addresses", (string)null);
+                    b.ToTable("Addresses");
                 });
 
             modelBuilder.Entity("DAL.Models.Domain.Genre", b =>
                 {
-                    b.Property<int>("GenreID")
+                    b.Property<int>("GenreId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("GenreID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("GenreId"));
 
                     b.Property<string>("GenreName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("GenreID");
+                    b.HasKey("GenreId");
 
-                    b.ToTable("Genres", (string)null);
+                    b.ToTable("Genres");
                 });
 
             modelBuilder.Entity("DAL.Models.Domain.Movie", b =>
@@ -87,8 +87,8 @@ namespace DAL.Migrations
                         .HasPrecision(3, 1)
                         .HasColumnType("decimal(3,1)");
 
-                    b.Property<DateOnly>("ReleaseDate")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("ReleaseDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -96,7 +96,7 @@ namespace DAL.Migrations
 
                     b.HasKey("MovieId");
 
-                    b.ToTable("Movies", (string)null);
+                    b.ToTable("Movies");
                 });
 
             modelBuilder.Entity("DAL.Models.Domain.PostalCode", b =>
@@ -110,7 +110,7 @@ namespace DAL.Migrations
 
                     b.HasKey("PostalCodeId");
 
-                    b.ToTable("PostalCodes", (string)null);
+                    b.ToTable("PostalCodes");
                 });
 
             modelBuilder.Entity("DAL.Models.Domain.Review", b =>
@@ -146,7 +146,7 @@ namespace DAL.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Reviews", (string)null);
+                    b.ToTable("Reviews");
                 });
 
             modelBuilder.Entity("DAL.Models.Domain.Role", b =>
@@ -164,7 +164,7 @@ namespace DAL.Migrations
 
                     b.HasKey("RoleId");
 
-                    b.ToTable("Roles", (string)null);
+                    b.ToTable("Roles");
                 });
 
             modelBuilder.Entity("DAL.Models.Domain.Seat", b =>
@@ -192,7 +192,7 @@ namespace DAL.Migrations
 
                     b.HasIndex("TheaterHallId");
 
-                    b.ToTable("Seats", (string)null);
+                    b.ToTable("Seats");
                 });
 
             modelBuilder.Entity("DAL.Models.Domain.Showtime", b =>
@@ -218,7 +218,7 @@ namespace DAL.Migrations
 
                     b.HasIndex("TheaterHallId");
 
-                    b.ToTable("Showtimes", (string)null);
+                    b.ToTable("Showtimes");
                 });
 
             modelBuilder.Entity("DAL.Models.Domain.TheaterHall", b =>
@@ -253,7 +253,7 @@ namespace DAL.Migrations
 
                     b.HasIndex("AddressId");
 
-                    b.ToTable("TheaterHalls", (string)null);
+                    b.ToTable("TheaterHalls");
                 });
 
             modelBuilder.Entity("DAL.Models.Domain.Ticket", b =>
@@ -288,7 +288,7 @@ namespace DAL.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Tickets", (string)null);
+                    b.ToTable("Tickets");
                 });
 
             modelBuilder.Entity("DAL.Models.Domain.User", b =>
@@ -300,9 +300,6 @@ namespace DAL.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"));
 
                     b.Property<int>("AddressId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("AddressId1")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreateDate")
@@ -333,20 +330,18 @@ namespace DAL.Migrations
 
                     b.HasIndex("AddressId");
 
-                    b.HasIndex("AddressId1");
-
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("GenreMovie", b =>
                 {
-                    b.Property<int>("GenresGenreID")
+                    b.Property<int>("GenresGenreId")
                         .HasColumnType("int");
 
                     b.Property<int>("MoviesMovieId")
                         .HasColumnType("int");
 
-                    b.HasKey("GenresGenreID", "MoviesMovieId");
+                    b.HasKey("GenresGenreId", "MoviesMovieId");
 
                     b.HasIndex("MoviesMovieId");
 
@@ -382,13 +377,13 @@ namespace DAL.Migrations
             modelBuilder.Entity("DAL.Models.Domain.Review", b =>
                 {
                     b.HasOne("DAL.Models.Domain.Movie", "Movie")
-                        .WithMany()
+                        .WithMany("Reviews")
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("DAL.Models.Domain.User", "User")
-                        .WithMany()
+                        .WithMany("Reviews")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -469,14 +464,10 @@ namespace DAL.Migrations
             modelBuilder.Entity("DAL.Models.Domain.User", b =>
                 {
                     b.HasOne("DAL.Models.Domain.Address", "Address")
-                        .WithMany()
+                        .WithMany("Users")
                         .HasForeignKey("AddressId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.HasOne("DAL.Models.Domain.Address", null)
-                        .WithMany("Users")
-                        .HasForeignKey("AddressId1");
 
                     b.Navigation("Address");
                 });
@@ -485,7 +476,7 @@ namespace DAL.Migrations
                 {
                     b.HasOne("DAL.Models.Domain.Genre", null)
                         .WithMany()
-                        .HasForeignKey("GenresGenreID")
+                        .HasForeignKey("GenresGenreId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -516,6 +507,11 @@ namespace DAL.Migrations
                     b.Navigation("Users");
                 });
 
+            modelBuilder.Entity("DAL.Models.Domain.Movie", b =>
+                {
+                    b.Navigation("Reviews");
+                });
+
             modelBuilder.Entity("DAL.Models.Domain.Seat", b =>
                 {
                     b.Navigation("Ticket");
@@ -531,6 +527,11 @@ namespace DAL.Migrations
                     b.Navigation("Seats");
 
                     b.Navigation("Showtimes");
+                });
+
+            modelBuilder.Entity("DAL.Models.Domain.User", b =>
+                {
+                    b.Navigation("Reviews");
                 });
 #pragma warning restore 612, 618
         }

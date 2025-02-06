@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20250114083828_AddedSeats")]
-    partial class AddedSeats
+    [Migration("20250122065910_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -60,17 +60,17 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("DAL.Models.Domain.Genre", b =>
                 {
-                    b.Property<int>("GenreID")
+                    b.Property<int>("GenreId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("GenreID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("GenreId"));
 
                     b.Property<string>("GenreName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("GenreID");
+                    b.HasKey("GenreId");
 
                     b.ToTable("Genres");
                 });
@@ -90,8 +90,8 @@ namespace DAL.Migrations
                         .HasPrecision(3, 1)
                         .HasColumnType("decimal(3,1)");
 
-                    b.Property<DateOnly>("ReleaseDate")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("ReleaseDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -182,12 +182,18 @@ namespace DAL.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("SeatNumber")
+                        .HasMaxLength(10)
                         .HasColumnType("int");
 
                     b.Property<int>("TheaterHallId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("TicketId")
+                        .HasColumnType("int");
+
                     b.HasKey("SeatId");
+
+                    b.HasIndex("TheaterHallId");
 
                     b.ToTable("Seats");
                 });
@@ -267,6 +273,9 @@ namespace DAL.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(10, 2)");
 
+                    b.Property<int>("SeatId")
+                        .HasColumnType("int");
+
                     b.Property<int>("ShowtimeId")
                         .HasColumnType("int");
 
@@ -274,6 +283,9 @@ namespace DAL.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("TicketId");
+
+                    b.HasIndex("SeatId")
+                        .IsUnique();
 
                     b.HasIndex("ShowtimeId");
 
@@ -326,13 +338,13 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("GenreMovie", b =>
                 {
-                    b.Property<int>("GenresGenreID")
+                    b.Property<int>("GenresGenreId")
                         .HasColumnType("int");
 
                     b.Property<int>("MoviesMovieId")
                         .HasColumnType("int");
 
-                    b.HasKey("GenresGenreID", "MoviesMovieId");
+                    b.HasKey("GenresGenreId", "MoviesMovieId");
 
                     b.HasIndex("MoviesMovieId");
 
@@ -368,13 +380,13 @@ namespace DAL.Migrations
             modelBuilder.Entity("DAL.Models.Domain.Review", b =>
                 {
                     b.HasOne("DAL.Models.Domain.Movie", "Movie")
-                        .WithMany()
+                        .WithMany("Reviews")
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("DAL.Models.Domain.User", "User")
-                        .WithMany()
+                        .WithMany("Reviews")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -382,6 +394,17 @@ namespace DAL.Migrations
                     b.Navigation("Movie");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("DAL.Models.Domain.Seat", b =>
+                {
+                    b.HasOne("DAL.Models.Domain.TheaterHall", "TheaterHall")
+                        .WithMany("Seats")
+                        .HasForeignKey("TheaterHallId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("TheaterHall");
                 });
 
             modelBuilder.Entity("DAL.Models.Domain.Showtime", b =>
@@ -416,6 +439,12 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("DAL.Models.Domain.Ticket", b =>
                 {
+                    b.HasOne("DAL.Models.Domain.Seat", "Seat")
+                        .WithOne("Ticket")
+                        .HasForeignKey("DAL.Models.Domain.Ticket", "SeatId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("DAL.Models.Domain.Showtime", "Showtime")
                         .WithMany("Tickets")
                         .HasForeignKey("ShowtimeId")
@@ -428,6 +457,8 @@ namespace DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Seat");
+
                     b.Navigation("Showtime");
 
                     b.Navigation("User");
@@ -438,7 +469,7 @@ namespace DAL.Migrations
                     b.HasOne("DAL.Models.Domain.Address", "Address")
                         .WithMany("Users")
                         .HasForeignKey("AddressId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Address");
@@ -448,7 +479,7 @@ namespace DAL.Migrations
                 {
                     b.HasOne("DAL.Models.Domain.Genre", null)
                         .WithMany()
-                        .HasForeignKey("GenresGenreID")
+                        .HasForeignKey("GenresGenreId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -479,6 +510,16 @@ namespace DAL.Migrations
                     b.Navigation("Users");
                 });
 
+            modelBuilder.Entity("DAL.Models.Domain.Movie", b =>
+                {
+                    b.Navigation("Reviews");
+                });
+
+            modelBuilder.Entity("DAL.Models.Domain.Seat", b =>
+                {
+                    b.Navigation("Ticket");
+                });
+
             modelBuilder.Entity("DAL.Models.Domain.Showtime", b =>
                 {
                     b.Navigation("Tickets");
@@ -486,7 +527,14 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("DAL.Models.Domain.TheaterHall", b =>
                 {
+                    b.Navigation("Seats");
+
                     b.Navigation("Showtimes");
+                });
+
+            modelBuilder.Entity("DAL.Models.Domain.User", b =>
+                {
+                    b.Navigation("Reviews");
                 });
 #pragma warning restore 612, 618
         }

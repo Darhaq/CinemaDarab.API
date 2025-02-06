@@ -40,7 +40,7 @@ namespace DAL.Repositories
             var existingSeat = await dbContext.Seats.FirstOrDefaultAsync(s => s.SeatId == id);
             if (existingSeat == null) return null;
 
-            existingSeat.RowNumber = seat.RowNumber;
+            existingSeat.Row = seat.Row;
             existingSeat.SeatNumber = seat.SeatNumber;
             existingSeat.TheaterHallId = seat.TheaterHallId;
 
