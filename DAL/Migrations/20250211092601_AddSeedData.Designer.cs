@@ -4,6 +4,7 @@ using DAL.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250211092601_AddSeedData")]
+    partial class AddSeedData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -267,7 +270,7 @@ namespace DAL.Migrations
                             Content = "Very confusing but great movie!",
                             MovieId = 1,
                             Rating = 8.8m,
-                            ReviewDate = new DateTime(2025, 2, 11, 8, 9, 32, 996, DateTimeKind.Local).AddTicks(9322),
+                            ReviewDate = new DateTime(2025, 2, 11, 10, 26, 0, 46, DateTimeKind.Local).AddTicks(8765),
                             UserId = 1
                         },
                         new
@@ -276,7 +279,7 @@ namespace DAL.Migrations
                             Content = "Heath Ledger was amazing!",
                             MovieId = 2,
                             Rating = 9.0m,
-                            ReviewDate = new DateTime(2025, 2, 11, 8, 9, 32, 996, DateTimeKind.Local).AddTicks(9325),
+                            ReviewDate = new DateTime(2025, 2, 11, 10, 26, 0, 46, DateTimeKind.Local).AddTicks(8768),
                             UserId = 2
                         },
                         new
@@ -285,7 +288,7 @@ namespace DAL.Migrations
                             Content = "One of the best movies of all time!",
                             MovieId = 3,
                             Rating = 9.3m,
-                            ReviewDate = new DateTime(2025, 2, 11, 8, 9, 32, 996, DateTimeKind.Local).AddTicks(9328),
+                            ReviewDate = new DateTime(2025, 2, 11, 10, 26, 0, 46, DateTimeKind.Local).AddTicks(8771),
                             UserId = 3
                         });
                 });
@@ -732,7 +735,7 @@ namespace DAL.Migrations
                         {
                             UserId = 1,
                             AddressId = 1,
-                            CreateDate = new DateTime(2025, 2, 11, 8, 9, 32, 996, DateTimeKind.Local).AddTicks(9269),
+                            CreateDate = new DateTime(2025, 2, 11, 10, 26, 0, 46, DateTimeKind.Local).AddTicks(8709),
                             Email = "john.doe@example.com",
                             FirstName = "John",
                             LastName = "Doe",
@@ -743,7 +746,7 @@ namespace DAL.Migrations
                         {
                             UserId = 2,
                             AddressId = 2,
-                            CreateDate = new DateTime(2025, 2, 11, 8, 9, 32, 996, DateTimeKind.Local).AddTicks(9274),
+                            CreateDate = new DateTime(2025, 2, 11, 10, 26, 0, 46, DateTimeKind.Local).AddTicks(8714),
                             Email = "jane.smith@example.com",
                             FirstName = "Jane",
                             LastName = "Smith",
@@ -754,7 +757,7 @@ namespace DAL.Migrations
                         {
                             UserId = 3,
                             AddressId = 3,
-                            CreateDate = new DateTime(2025, 2, 11, 8, 9, 32, 996, DateTimeKind.Local).AddTicks(9278),
+                            CreateDate = new DateTime(2025, 2, 11, 10, 26, 0, 46, DateTimeKind.Local).AddTicks(8717),
                             Email = "alice.johnson@example.com",
                             FirstName = "Alice",
                             LastName = "Johnson",

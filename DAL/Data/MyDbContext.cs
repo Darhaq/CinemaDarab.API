@@ -45,10 +45,10 @@ namespace DAL.Data
                       .HasDefaultValueSql("GETDATE()");
                 
 
-                // Configure User-Role many-to-many relationship
-                entity.HasMany(u => u.Roles)
+                // Configure User-Role one-to-many relationship
+                entity.HasOne(u => u.Role)
                       .WithMany(r => r.Users)
-                      .UsingEntity(j => j.ToTable("UserRoles"));
+                      .HasForeignKey(u => u.RoleId); // One-to-many
 
                 entity.HasOne(u => u.Address)
                       .WithMany(a => a.Users)

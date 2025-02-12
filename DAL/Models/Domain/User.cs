@@ -28,7 +28,6 @@ namespace DAL.Models.Domain
         // Navigation Property
         public Address Address { get; set; }
         public int AddressId { get; set; }
-        public List<Role> Roles { get; set; } = new List<Role>();
         public List<Review> Reviews { get; set; } = new List<Review>();
     }
 }
