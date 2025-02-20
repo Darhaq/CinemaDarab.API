@@ -18,5 +18,7 @@ namespace DAL.Models.DTOs.User
         public string Email { get; set; } = null!;
         public string Password { get; set; }
         public int PostalCodeId { get; set; }
+        public int RoleId { get; set; }
+        public int AddressId { get; set; }
     }
 }

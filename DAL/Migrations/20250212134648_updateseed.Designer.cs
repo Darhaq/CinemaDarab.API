@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20250211092601_AddSeedData")]
-    partial class AddSeedData
+    [Migration("20250212134648_updateseed")]
+    partial class updateseed
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -270,7 +270,7 @@ namespace DAL.Migrations
                             Content = "Very confusing but great movie!",
                             MovieId = 1,
                             Rating = 8.8m,
-                            ReviewDate = new DateTime(2025, 2, 11, 10, 26, 0, 46, DateTimeKind.Local).AddTicks(8765),
+                            ReviewDate = new DateTime(2025, 2, 12, 14, 46, 48, 72, DateTimeKind.Local).AddTicks(3601),
                             UserId = 1
                         },
                         new
@@ -279,7 +279,7 @@ namespace DAL.Migrations
                             Content = "Heath Ledger was amazing!",
                             MovieId = 2,
                             Rating = 9.0m,
-                            ReviewDate = new DateTime(2025, 2, 11, 10, 26, 0, 46, DateTimeKind.Local).AddTicks(8768),
+                            ReviewDate = new DateTime(2025, 2, 12, 14, 46, 48, 72, DateTimeKind.Local).AddTicks(3604),
                             UserId = 2
                         },
                         new
@@ -288,7 +288,7 @@ namespace DAL.Migrations
                             Content = "One of the best movies of all time!",
                             MovieId = 3,
                             Rating = 9.3m,
-                            ReviewDate = new DateTime(2025, 2, 11, 10, 26, 0, 46, DateTimeKind.Local).AddTicks(8771),
+                            ReviewDate = new DateTime(2025, 2, 12, 14, 46, 48, 72, DateTimeKind.Local).AddTicks(3606),
                             UserId = 3
                         });
                 });
@@ -719,12 +719,17 @@ namespace DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("PostalCodeId")
+                        .HasColumnType("int");
+
                     b.Property<int>("RoleId")
                         .HasColumnType("int");
 
                     b.HasKey("UserId");
 
                     b.HasIndex("AddressId");
+
+                    b.HasIndex("PostalCodeId");
 
                     b.HasIndex("RoleId");
 
@@ -735,33 +740,36 @@ namespace DAL.Migrations
                         {
                             UserId = 1,
                             AddressId = 1,
-                            CreateDate = new DateTime(2025, 2, 11, 10, 26, 0, 46, DateTimeKind.Local).AddTicks(8709),
+                            CreateDate = new DateTime(2025, 2, 12, 14, 46, 48, 72, DateTimeKind.Local).AddTicks(3546),
                             Email = "john.doe@example.com",
                             FirstName = "John",
                             LastName = "Doe",
                             PasswordHash = "hashedpassword",
+                            PostalCodeId = 1,
                             RoleId = 1
                         },
                         new
                         {
                             UserId = 2,
                             AddressId = 2,
-                            CreateDate = new DateTime(2025, 2, 11, 10, 26, 0, 46, DateTimeKind.Local).AddTicks(8714),
+                            CreateDate = new DateTime(2025, 2, 12, 14, 46, 48, 72, DateTimeKind.Local).AddTicks(3553),
                             Email = "jane.smith@example.com",
                             FirstName = "Jane",
                             LastName = "Smith",
                             PasswordHash = "hashedpassword2",
+                            PostalCodeId = 2,
                             RoleId = 2
                         },
                         new
                         {
                             UserId = 3,
                             AddressId = 3,
-                            CreateDate = new DateTime(2025, 2, 11, 10, 26, 0, 46, DateTimeKind.Local).AddTicks(8717),
+                            CreateDate = new DateTime(2025, 2, 12, 14, 46, 48, 72, DateTimeKind.Local).AddTicks(3556),
                             Email = "alice.johnson@example.com",
                             FirstName = "Alice",
                             LastName = "Johnson",
                             PasswordHash = "hashedpassword3",
+                            PostalCodeId = 3,
                             RoleId = 2
                         });
                 });
@@ -929,6 +937,12 @@ namespace DAL.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("DAL.Models.Domain.PostalCode", "PostalCode")
+                        .WithMany("Users")
+                        .HasForeignKey("PostalCodeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("DAL.Models.Domain.Role", "Role")
                         .WithMany("Users")
                         .HasForeignKey("RoleId")
@@ -936,6 +950,8 @@ namespace DAL.Migrations
                         .IsRequired();
 
                     b.Navigation("Address");
+
+                    b.Navigation("PostalCode");
 
                     b.Navigation("Role");
                 });
@@ -963,6 +979,11 @@ namespace DAL.Migrations
             modelBuilder.Entity("DAL.Models.Domain.Movie", b =>
                 {
                     b.Navigation("Reviews");
+                });
+
+            modelBuilder.Entity("DAL.Models.Domain.PostalCode", b =>
+                {
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("DAL.Models.Domain.Role", b =>

@@ -16,7 +16,9 @@ namespace DAL.Mappings
         {
             // Users
             CreateMap<UpdateUserRequestDto, User>().ReverseMap();
-            CreateMap<AddUserRequestDto, User>().ReverseMap();
+            CreateMap<AddUserRequestDto, User>()
+                .ForMember(dest => dest.AddressId, opt => opt.MapFrom(src => src.AddressId))
+                .ReverseMap();
             CreateMap<User, UserDto>().ReverseMap();
 
             // PostalCode

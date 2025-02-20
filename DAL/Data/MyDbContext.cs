@@ -54,6 +54,12 @@ namespace DAL.Data
                       .WithMany(a => a.Users)
                       .HasForeignKey(u => u.AddressId)
                       .OnDelete(DeleteBehavior.Restrict); // One-to-many
+
+                // Configure User-PostalCode one-to-many relationship
+                entity.HasOne(u => u.PostalCode)
+                      .WithMany(p => p.Users)
+                      .HasForeignKey(u => u.PostalCodeId)
+                      .OnDelete(DeleteBehavior.Restrict); // One-to-many
             });
 
             // POSTALCODE

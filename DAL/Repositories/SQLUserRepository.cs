@@ -17,8 +17,20 @@ namespace DAL.Repositories
         {
             this.dbContext = dbContext;
         }
+
+        public async Task<bool> AddressExistsAsync(int addressId)
+        {
+            return await dbContext.Addresses.AnyAsync(a => a.AddressId == addressId);
+        }
+
         public async Task<User> CreateAsync(User user)
         {
+            // Check if the AddressId exists
+            if (!await AddressExistsAsync(user.AddressId))
+            {
+                throw new Exception("Invalid AddressId. The specified address does not exist.");
+            }
+
             await dbContext.Users.AddAsync(user);
             await dbContext.SaveChangesAsync();
             return user;

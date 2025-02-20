@@ -29,5 +29,7 @@ namespace DAL.Models.Domain
         public Address Address { get; set; }
         public int AddressId { get; set; }
         public List<Review> Reviews { get; set; } = new List<Review>();
+        public int PostalCodeId { get; set; }
+        public PostalCode PostalCode { get; set; }
     }
 }

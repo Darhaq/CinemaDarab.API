@@ -92,21 +92,24 @@ namespace DAL.Data
             modelBuilder.Entity<PostalCode>().HasData(
                 new PostalCode { PostalCodeId = 1, Name = "12345" },
                 new PostalCode { PostalCodeId = 2, Name = "67890" },
-                new PostalCode { PostalCodeId = 3, Name = "13579" }
+                new PostalCode { PostalCodeId = 3, Name = "13579" },
+                new PostalCode { PostalCodeId = 4, Name = "98765"}
             );
 
             // Seed Addresses
             modelBuilder.Entity<Address>().HasData(
                 new Address { AddressId = 1, Street = "123 Main St", City = "Odense", PostalCodeId = 1, Country = "Denmark" },
                 new Address { AddressId = 2, Street = "456 Elm St", City = "Copenhagen", PostalCodeId = 2, Country = "Denmark" },
-                new Address { AddressId = 3, Street = "789 Oak St", City = "Aarhus", PostalCodeId = 3, Country = "Denmark" }
+                new Address { AddressId = 3, Street = "789 Oak St", City = "Aarhus", PostalCodeId = 3, Country = "Denmark" },
+                new Address { AddressId = 4, Street = "000 Ang St", City = "Kolding", PostalCodeId = 4, Country = "Denmark" }
+                
             );
 
             // Seed Users
             modelBuilder.Entity<User>().HasData(
-                new User { UserId = 1, FirstName = "John", LastName = "Doe", Email = "john.doe@example.com", PasswordHash = "hashedpassword", CreateDate = DateTime.Now, AddressId = 1, RoleId = 1 },
-                new User { UserId = 2, FirstName = "Jane", LastName = "Smith", Email = "jane.smith@example.com", PasswordHash = "hashedpassword2", CreateDate = DateTime.Now, AddressId = 2, RoleId = 2 },
-                new User { UserId = 3, FirstName = "Alice", LastName = "Johnson", Email = "alice.johnson@example.com", PasswordHash = "hashedpassword3", CreateDate = DateTime.Now, AddressId = 3, RoleId = 2 }
+                new User { UserId = 1, FirstName = "John", LastName = "Doe", Email = "john.doe@example.com", PasswordHash = "hashedpassword", CreateDate = DateTime.Now, AddressId = 1, PostalCodeId = 1, RoleId = 1 },
+                new User { UserId = 2, FirstName = "Jane", LastName = "Smith", Email = "jane.smith@example.com", PasswordHash = "hashedpassword2", CreateDate = DateTime.Now, AddressId = 2, PostalCodeId = 2, RoleId = 2 },
+                new User { UserId = 3, FirstName = "Alice", LastName = "Johnson", Email = "alice.johnson@example.com", PasswordHash = "hashedpassword3", CreateDate = DateTime.Now, AddressId = 3, PostalCodeId = 3, RoleId = 2 }
             );
 
             // Seed Showtimes

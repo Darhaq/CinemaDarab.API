@@ -25,8 +25,30 @@ namespace Cinema.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] AddUserRequestDto addUserRequestDto)
         {
+            if (addUserRequestDto == null)
+            {
+                return BadRequest("Request data is null.");
+            }
+
+            if (mapper == null)
+            {
+                throw new NullReferenceException("Mapper is not initialized.");
+            }
+
+            if (userRepository == null)
+            {
+                throw new NullReferenceException("UserRepository is not initialized.");
+            }
+
             // Map DTO to Domain Model
             var userDomainModel = mapper.Map<User>(addUserRequestDto);
+
+            // Check if the AddressId exists
+            var addressExists = await userRepository.AddressExistsAsync(userDomainModel.AddressId);
+            if (!addressExists)
+            {
+                return BadRequest("Invalid AddressId. The specified address does not exist.");
+            }
 
             await userRepository.CreateAsync(userDomainModel);
 

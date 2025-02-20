@@ -10,5 +10,7 @@ namespace DAL.Models.Domain
     {
         public int PostalCodeId {  get; set; }
         public string Name { get; set; } = String.Empty;
+        public ICollection<User> Users { get; set; } = new List<User>();
     }
 }
+

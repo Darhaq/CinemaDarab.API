@@ -9,6 +9,7 @@ namespace DAL.Repositories
 {
     public interface IUserRepository
     {
+        Task<bool> AddressExistsAsync(int addressId);
         Task<User> CreateAsync(User user);
         Task<List<User>> GetAllAsync();
         Task<User?> GetByIdAsync(int id);

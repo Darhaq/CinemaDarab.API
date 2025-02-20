@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20250211070934_AddSeedData")]
-    partial class AddSeedData
+    [Migration("20250212080238_SeedStuff")]
+    partial class SeedStuff
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -270,7 +270,7 @@ namespace DAL.Migrations
                             Content = "Very confusing but great movie!",
                             MovieId = 1,
                             Rating = 8.8m,
-                            ReviewDate = new DateTime(2025, 2, 11, 8, 9, 32, 996, DateTimeKind.Local).AddTicks(9322),
+                            ReviewDate = new DateTime(2025, 2, 12, 9, 2, 38, 139, DateTimeKind.Local).AddTicks(5736),
                             UserId = 1
                         },
                         new
@@ -279,7 +279,7 @@ namespace DAL.Migrations
                             Content = "Heath Ledger was amazing!",
                             MovieId = 2,
                             Rating = 9.0m,
-                            ReviewDate = new DateTime(2025, 2, 11, 8, 9, 32, 996, DateTimeKind.Local).AddTicks(9325),
+                            ReviewDate = new DateTime(2025, 2, 12, 9, 2, 38, 139, DateTimeKind.Local).AddTicks(5740),
                             UserId = 2
                         },
                         new
@@ -288,7 +288,7 @@ namespace DAL.Migrations
                             Content = "One of the best movies of all time!",
                             MovieId = 3,
                             Rating = 9.3m,
-                            ReviewDate = new DateTime(2025, 2, 11, 8, 9, 32, 996, DateTimeKind.Local).AddTicks(9328),
+                            ReviewDate = new DateTime(2025, 2, 12, 9, 2, 38, 139, DateTimeKind.Local).AddTicks(5742),
                             UserId = 3
                         });
                 });
@@ -735,7 +735,7 @@ namespace DAL.Migrations
                         {
                             UserId = 1,
                             AddressId = 1,
-                            CreateDate = new DateTime(2025, 2, 11, 8, 9, 32, 996, DateTimeKind.Local).AddTicks(9269),
+                            CreateDate = new DateTime(2025, 2, 12, 9, 2, 38, 139, DateTimeKind.Local).AddTicks(5681),
                             Email = "john.doe@example.com",
                             FirstName = "John",
                             LastName = "Doe",
@@ -746,7 +746,7 @@ namespace DAL.Migrations
                         {
                             UserId = 2,
                             AddressId = 2,
-                            CreateDate = new DateTime(2025, 2, 11, 8, 9, 32, 996, DateTimeKind.Local).AddTicks(9274),
+                            CreateDate = new DateTime(2025, 2, 12, 9, 2, 38, 139, DateTimeKind.Local).AddTicks(5686),
                             Email = "jane.smith@example.com",
                             FirstName = "Jane",
                             LastName = "Smith",
@@ -757,7 +757,7 @@ namespace DAL.Migrations
                         {
                             UserId = 3,
                             AddressId = 3,
-                            CreateDate = new DateTime(2025, 2, 11, 8, 9, 32, 996, DateTimeKind.Local).AddTicks(9278),
+                            CreateDate = new DateTime(2025, 2, 12, 9, 2, 38, 139, DateTimeKind.Local).AddTicks(5689),
                             Email = "alice.johnson@example.com",
                             FirstName = "Alice",
                             LastName = "Johnson",
